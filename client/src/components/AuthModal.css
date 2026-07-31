@@ -1,0 +1,169 @@
+/* ── Glass card ──────────────────────────────────────────── */
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 44px 40px 36px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.auth-card-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.auth-card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0 auto 18px;
+  box-shadow:
+    0 8px 24px rgba(168, 85, 247, 0.4),
+    0 0 0 1px rgba(168, 85, 247, 0.3);
+}
+
+.auth-card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #a855f7;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.auth-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #f1f0f5;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.auth-card-subtitle {
+  font-size: 14px;
+  color: rgba(241, 240, 245, 0.45);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Google button ───────────────────────────────────────── */
+.auth-google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f0f5;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: -0.2px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  margin-bottom: 20px;
+  font-family: inherit;
+}
+
+.auth-google-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.auth-google-btn:active {
+  transform: scale(0.98);
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.auth-divider hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0;
+}
+
+.auth-divider span {
+  font-size: 11px;
+  color: rgba(241, 240, 245, 0.3);
+  white-space: nowrap;
+}
+
+/* ── Trust chips ─────────────────────────────────────────── */
+.auth-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.auth-trust-chip {
+  font-size: 12px;
+  color: rgba(241, 240, 245, 0.45);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+/* ── Card footer ─────────────────────────────────────────── */
+.auth-card-footer {
+  font-size: 12px;
+  color: rgba(241, 240, 245, 0.25);
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.auth-card-footer a {
+  color: rgba(168, 85, 247, 0.7);
+  text-decoration: none;
+}
+
+.auth-card-footer a:hover {
+  color: #a855f7;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 36px 24px 28px;
+    border-radius: 22px;
+  }
+}

@@ -1,11 +1,11 @@
-import express from "express"
-import { googleAuth, logOut } from "../controller/auth.controller.js"
+// Auth routes — no authentication required (these are the sign-in/sign-out endpoints)
 
-const authRouter = express.Router()
+import express from "express";
+import { googleSignIn, logOutUser } from "../controller/auth.controller.js";
 
+const authRouter = express.Router();
 
-authRouter.post("/google",googleAuth)
-authRouter.get("/logout",logOut)
+authRouter.post("/google", googleSignIn);
+authRouter.get("/logout", logOutUser);
 
-
-export default authRouter
+export default authRouter;
