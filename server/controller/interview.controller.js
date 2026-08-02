@@ -1,6 +1,8 @@
 import fs from 'fs'
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { askAi } from '../services/openRouter.service.js';
+import {User} from '../models/user.model.js';
+import Interview from '../models/interview.model.js'
 
 export const analyzeResume = async (req, res) => {
   try {
@@ -97,6 +99,7 @@ Return ONLY valid JSON, no markdown, no explanation:
 
 export const generateQuestion = async (req, res) => {
   try {
+    console.log(req.body);
     let { role, experience, mode, resumeText, projects, skills } = req.body
 
     role = role?.trim();
@@ -115,11 +118,11 @@ export const generateQuestion = async (req, res) => {
       });
     }
 
-    if (user.credits < 50) {
-      return res.status(400).json({
-        message: "Not enough credits. Minimum 50 required."
-      });
-    }
+  //  if (user.credits < 50) {
+  //    return res.status(400).json({
+   //     message: "Not enough credits. Minimum 50 required."
+   //   });
+  //  }
 
     const projectText = Array.isArray(projects) && projects.length
       ? projects.join(", ")
@@ -194,6 +197,7 @@ Make questions based on the candidate’s role, experience,interviewMode, projec
       });
 
     }
+    console.log("AI Response:", aiResponse);
 
     const questionsArray = aiResponse
       .split("\n")

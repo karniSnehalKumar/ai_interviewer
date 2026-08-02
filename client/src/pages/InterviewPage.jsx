@@ -1,4 +1,5 @@
 import Step1SetUp from '../components/Step1SetUp'
+import Step2Interview from '../components/Step2Interview'
 import { useState } from 'react'
 
 function InterviewPage() {
@@ -12,7 +13,14 @@ function InterviewPage() {
                 setInterviewData(data);
             setStep(2)}}/>
         )}
-        
+         {step===2 && (
+            <Step2Interview interviewData={interviewData}
+            onFinish={(report)=>{setInterviewData(report);
+                setStep(3)
+            }}
+            />
+        )}
+
         
         
 

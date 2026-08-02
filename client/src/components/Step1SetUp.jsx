@@ -39,6 +39,8 @@ function Step1SetUp({ onStart }) {
       const result = await axios.post(SERVER_URL + "/api/interview/resume", formdata, {
         withCredentials: true,
       });
+       console.log(result);
+      console.log(result.data);
       setRole(result.data.role || "");
       setExperience(result.data.experience || "");
       setProjects(result.data.projects || []);
@@ -53,6 +55,10 @@ function Step1SetUp({ onStart }) {
   };
 
   const handleStart = async () => {
+    if (!analysisDone || !role.trim() || !experience.trim()) {
+      return;
+    }
+
     setLoading(true);
     try {
       const result = await axios.post(
@@ -289,7 +295,7 @@ function Step1SetUp({ onStart }) {
             <motion.button
               className="setup-start-btn"
               onClick={handleStart}
-              disabled={loading}
+              disabled={loading || !analysisDone || !role || !experience}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -298,6 +304,8 @@ function Step1SetUp({ onStart }) {
                   <span className="setup-btn-spinner" />
                   Starting...
                 </>
+              ) : !analysisDone || !role || !experience ? (
+                "Analyze resume first →"
               ) : (
                 "Start Interview →"
               )}
