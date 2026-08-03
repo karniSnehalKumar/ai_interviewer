@@ -1,7 +1,7 @@
 
 import "./Home.css";
-import Navbar from '../components/Navbar'
-import { useSelector } from 'react-redux'
+import Navbar from '../components/layout/Navbar';
+import { useSelector } from 'react-redux';
 import { motion } from "motion/react";
 import {
   BsRobot,
@@ -13,16 +13,15 @@ import {
 import { HiSparkles } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import AuthModal from '../components/AuthModal';
+import AuthModal from '../components/auth/AuthModal';
 import hrImg from "../assets/HR.png";
 import techImg from "../assets/tech.png";
 import confidenceImg from "../assets/confi.png";
-import creditImg from "../assets/credit.png";
 import evalImg from "../assets/ai-ans.png";
 import resumeImg from "../assets/resume.png";
 import pdfImg from "../assets/pdf.png";
 import analyticsImg from "../assets/history.png";
-import Footer from '../components/Footer';
+import Footer from '../components/layout/Footer';
 
 
 function Home() {
@@ -272,9 +271,9 @@ function Home() {
                 desc: "Basic tone and voice analysis insights.",
               },
               {
-                img: creditImg,
-                title: "Credits System",
-                desc: "Unlock premium interview sessions easily.",
+                img: analyticsImg,
+                title: "Instant AI Scoring",
+                desc: "Get immediate score breakdowns and constructive feedback.",
               },
             ].map((mode, index) => (
               <motion.div

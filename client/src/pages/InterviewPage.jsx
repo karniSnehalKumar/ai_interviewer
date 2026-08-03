@@ -1,5 +1,6 @@
-import Step1SetUp from '../components/Step1SetUp'
-import Step2Interview from '../components/Step2Interview'
+import Step1SetUp from '../components/interview/Step1SetUp'
+import Step2Interview from '../components/interview/Step2Interview'
+import Step3Report from '../components/interview/Step3Report'
 import { useState } from 'react'
 
 function InterviewPage() {
@@ -19,6 +20,10 @@ function InterviewPage() {
                 setStep(3)
             }}
             />
+        )}
+
+         {step===3 && (
+            <Step3Report report={interviewData}/>
         )}
 
         

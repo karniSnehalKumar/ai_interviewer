@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import axios from "axios";
-import { SERVER_URL } from '../utils/constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser } from '../redux/userSlice';
+import { SERVER_URL } from '../../utils/constants';
 import { motion } from "motion/react";
 import {
   FaUserTie,
@@ -11,14 +9,11 @@ import {
   FaMicrophoneAlt,
   FaChartLine,
   FaBrain,
-  FaStar,
 } from "react-icons/fa";
 import { HiSparkles } from "react-icons/hi";
 import "./Step1SetUp.css";
 
 function Step1SetUp({ onStart }) {
-  const { userData } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const [role, setRole] = useState("");
   const [experience, setExperience] = useState("");
   const [mode, setMode] = useState("Technical");
@@ -39,8 +34,6 @@ function Step1SetUp({ onStart }) {
       const result = await axios.post(SERVER_URL + "/api/interview/resume", formdata, {
         withCredentials: true,
       });
-       console.log(result);
-      console.log(result.data);
       setRole(result.data.role || "");
       setExperience(result.data.experience || "");
       setProjects(result.data.projects || []);
@@ -48,17 +41,14 @@ function Step1SetUp({ onStart }) {
       setResumeText(result.data.resumeText || "");
       setAnalysisDone(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setAnalyzing(false);
     }
   };
 
   const handleStart = async () => {
-    if (!analysisDone || !role.trim() || !experience.trim()) {
-      return;
-    }
-
+    if (!analysisDone || !role.trim() || !experience.trim()) return;
     setLoading(true);
     try {
       const result = await axios.post(
@@ -66,12 +56,9 @@ function Step1SetUp({ onStart }) {
         { role, experience, mode, resumeText, projects, skills },
         { withCredentials: true }
       );
-      if (userData) {
-        dispatch(setCurrentUser({ ...userData, credits: result.data.creditsLeft }));
-      }
       onStart(result.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -91,7 +78,6 @@ function Step1SetUp({ onStart }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* ── Ambient background blobs ── */}
       <div className="setup-blobs" aria-hidden="true">
         <motion.div
           animate={{ scale: [1, 1.15, 1], opacity: [0.45, 0.65, 0.45] }}
@@ -125,14 +111,12 @@ function Step1SetUp({ onStart }) {
         />
       </div>
 
-      {/* ── Main card ── */}
       <motion.div
         className="setup-card"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        {/* ── LEFT PANEL ── */}
         <motion.div
           className="setup-left"
           initial={{ x: -60, opacity: 0 }}
@@ -170,7 +154,6 @@ function Step1SetUp({ onStart }) {
           </div>
         </motion.div>
 
-        {/* ── RIGHT PANEL (form) ── */}
         <motion.div
           className="setup-right"
           initial={{ x: 60, opacity: 0 }}
@@ -180,7 +163,6 @@ function Step1SetUp({ onStart }) {
           <h2 className="setup-form-title">Interview Setup</h2>
 
           <div className="setup-form">
-            {/* Mode select */}
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
@@ -190,7 +172,6 @@ function Step1SetUp({ onStart }) {
               <option value="HR">HR Interview</option>
             </select>
 
-            {/* Resume upload zone */}
             {!analysisDone && (
               <motion.div
                 className="setup-upload-zone"
@@ -241,7 +222,6 @@ function Step1SetUp({ onStart }) {
               </motion.div>
             )}
 
-            {/* Analysis result */}
             {analysisDone && (
               <motion.div
                 className="setup-analysis-box"
@@ -251,7 +231,6 @@ function Step1SetUp({ onStart }) {
               >
                 <p className="setup-analysis-title">Resume Analysis</p>
 
-                {/* Role & Experience detected by AI */}
                 <div className="setup-analysis-meta">
                   {role && (
                     <div className="setup-analysis-meta-item">
@@ -291,7 +270,6 @@ function Step1SetUp({ onStart }) {
               </motion.div>
             )}
 
-            {/* Start button */}
             <motion.button
               className="setup-start-btn"
               onClick={handleStart}

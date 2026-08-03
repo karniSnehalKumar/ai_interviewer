@@ -1,20 +1,15 @@
-// AuthModal renders a full-screen backdrop overlay with the AuthCard centred inside.
-// It handles the Google OAuth sign-in flow and dispatches the user to Redux on success.
-
 import "./AuthModal.css";
-import AuthCard from "./auth/AuthCard";
+import AuthCard from "./AuthCard";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../utils/firebase";
+import { auth, provider } from "../../utils/firebase";
 import axios from "axios";
-import { SERVER_URL } from "../utils/constants";
+import { SERVER_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../redux/userSlice";
+import { setCurrentUser } from "../../redux/userSlice";
 
 export default function AuthModal({ onClose }) {
   const dispatch = useDispatch();
 
-  // Triggers the Google sign-in popup, sends the user's details to the server,
-  // and stores the returned user object in Redux. Closes the modal on success.
   const handleGoogleSignIn = async () => {
     try {
       const response = await signInWithPopup(auth, provider);
@@ -31,7 +26,7 @@ export default function AuthModal({ onClose }) {
       dispatch(setCurrentUser(result.data));
       onClose();
     } catch (error) {
-      console.log("Google sign-in failed:", error);
+      console.error(error);
       dispatch(setCurrentUser(null));
     }
   };
@@ -50,7 +45,6 @@ export default function AuthModal({ onClose }) {
       }}
       onClick={onClose}
     >
-      {/* Stop click propagation so clicking the card doesn't close the modal */}
       <div onClick={(e) => e.stopPropagation()}>
         <AuthCard onGoogleSignIn={handleGoogleSignIn} />
       </div>

@@ -9,8 +9,8 @@ import { User } from "../models/user.model.js";
 // Both must match exactly so clearCookie removes the right cookie.
 const COOKIE_OPTIONS = {
   httpOnly: true,           // JS on the client cannot read this cookie (XSS protection)
-  secure: false,            // Set to true in production (requires HTTPS)
-  sameSite: "lax",          // "lax" works across localhost ports (5173 → 3000) in dev
+  secure: process.env.NODE_ENV === "production", // Set to true in production (requires HTTPS)
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // cross-site cookie handling in prod
   path: "/",                // Must be explicit so clearCookie targets the same cookie
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
 };
@@ -49,7 +49,8 @@ const logOutUser = (req, res) => {
     // Pass the same path/options so Express targets the exact cookie that was set
     res.clearCookie("token", {
       httpOnly: true,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
     });
     return res.status(200).json({ message: "Logged out successfully" });
