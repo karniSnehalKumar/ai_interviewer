@@ -24,10 +24,12 @@ function Step1SetUp({ onStart }) {
   const [resumeText, setResumeText] = useState("");
   const [analysisDone, setAnalysisDone] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   const handleUploadResume = async () => {
     if (!resumeFile || analyzing) return;
     setAnalyzing(true);
+    setUploadError("");
     const formdata = new FormData();
     formdata.append("resume", resumeFile);
     try {
@@ -42,6 +44,15 @@ function Step1SetUp({ onStart }) {
       setAnalysisDone(true);
     } catch (error) {
       console.error(error);
+      const status = error?.response?.status;
+      const msg = error?.response?.data?.message;
+      if (status === 401) {
+        setUploadError("Not logged in. Please sign in and try again.");
+      } else if (msg) {
+        setUploadError(msg);
+      } else {
+        setUploadError("Upload failed. Check your connection and try again.");
+      }
     } finally {
       setAnalyzing(false);
     }
@@ -219,6 +230,17 @@ function Step1SetUp({ onStart }) {
                       "Analyze Resume"
                     )}
                   </motion.button>
+                )}
+
+                {uploadError && (
+                  <p style={{
+                    color: "#f87171",
+                    fontSize: "0.8rem",
+                    marginTop: "0.5rem",
+                    textAlign: "center",
+                  }}>
+                    ⚠️ {uploadError}
+                  </p>
                 )}
               </motion.label>
             )}
