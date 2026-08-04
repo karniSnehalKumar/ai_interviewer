@@ -55,7 +55,6 @@ Return ONLY valid JSON, no markdown, no explanation:
 
     const aiResponse = await askAi(messages)
 
-    // Strip markdown code fences the AI sometimes wraps around JSON
     let parsed;
     try {
       const cleanJson = aiResponse.replace(/```json\n?|```/gi, "").trim();
@@ -203,7 +202,6 @@ export const submitAnswer = async (req, res) => {
 
     const interview = await Interview.findById(interviewId)
 
-    // Ensure the interview exists and belongs to the requesting user
     if (!interview) {
       return res.status(404).json({ message: "Interview not found." });
     }
@@ -288,7 +286,6 @@ Answer: ${answer}
 
     const aiResponse = await askAi(messages)
 
-    // Strip markdown code fences the AI sometimes wraps around JSON
     let parsed;
     try {
       const cleanJson = aiResponse.replace(/```json\n?|```/gi, "").trim();
@@ -320,7 +317,6 @@ export const finishInterview = async (req, res) => {
       return res.status(404).json({ message: "Interview not found." })
     }
 
-    // Ensure the interview belongs to the requesting user
     if (interview.userId.toString() !== req.userId) {
       return res.status(403).json({ message: "Forbidden: you do not own this interview." });
     }

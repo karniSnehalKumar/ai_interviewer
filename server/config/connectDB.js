@@ -1,6 +1,3 @@
-// Establishes a connection to MongoDB using the MONGODB_URL environment variable.
-// Called once at server startup. Exits the process on failure.
-
 import mongoose from "mongoose";
 
 const connectDB = async () => {

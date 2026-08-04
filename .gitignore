@@ -13,5 +13,6 @@
 # macOS
 .DS_Store
 
-# Uploaded user files (resumes, etc.)
-server/public/
+# Uploaded user files — keep folder structure, ignore content
+server/public/*
+!server/public/.gitkeep
