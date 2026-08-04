@@ -155,31 +155,6 @@ npm run dev
 
 ---
 
-## Deployment
-
-### Backend — Render
-
-1. Create a new **Web Service** on [Render](https://render.com)
-2. Connect your GitHub repository
-3. Set **Root Directory** to `server`
-4. **Build Command:** `npm install`
-5. **Start Command:** `npm start`
-6. Add all environment variables from `server/.env.example` in the Render dashboard
-7. Set `NODE_ENV=production` and `CLIENT_URL=https://your-frontend.vercel.app`
-
-> **Important:** Render does not provide persistent disk. Uploaded resume files are deleted after each deployment cycle — this is expected since `server/public/` only holds files temporarily during a single request.
-
-### Frontend — Vercel
-
-1. Import your repo on [Vercel](https://vercel.com)
-2. Set **Root Directory** to `client`
-3. **Build Command:** `npm run build`
-4. **Output Directory:** `dist`
-5. Add environment variables:
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_SERVER_URL` → your Render backend URL (no trailing slash)
-
----
 
 ## API Overview
 
@@ -275,10 +250,10 @@ Step 3 (Report)
 ## Future Improvements
 
 - [ ] Persistent file storage (e.g. AWS S3) to support PDF resume access after upload
-- [ ] Refresh token support for longer sessions without re-login
-- [ ] Export interview report as PDF
+- [ ] Docker Deployment
+- [ ] Redis Caching
 - [ ] Support for additional languages via Web Speech API `lang` configuration
-- [ ] Admin dashboard for usage analytics
+- [ ] WebSocket live collaborative interviews
 
 ---
 
