@@ -54,7 +54,15 @@ Return ONLY valid JSON, no markdown, no explanation:
     ];
 
     const aiResponse = await askAi(messages)
-    const parsed = JSON.parse(aiResponse);
+
+    // Strip markdown code fences the AI sometimes wraps around JSON
+    let parsed;
+    try {
+      const cleanJson = aiResponse.replace(/```json\n?|```/gi, "").trim();
+      parsed = JSON.parse(cleanJson);
+    } catch {
+      throw new Error("AI returned invalid JSON for resume analysis.");
+    }
 
     fs.unlinkSync(filepath);
 
@@ -194,7 +202,20 @@ export const submitAnswer = async (req, res) => {
     const { interviewId, questionIndex, answer, timeTaken } = req.body
 
     const interview = await Interview.findById(interviewId)
+
+    // Ensure the interview exists and belongs to the requesting user
+    if (!interview) {
+      return res.status(404).json({ message: "Interview not found." });
+    }
+    if (interview.userId.toString() !== req.userId) {
+      return res.status(403).json({ message: "Forbidden: you do not own this interview." });
+    }
+
     const question = interview.questions[questionIndex]
+
+    if (!question) {
+      return res.status(400).json({ message: "Invalid question index." });
+    }
 
     if (!answer) {
       question.score = 0;
@@ -266,7 +287,15 @@ Answer: ${answer}
     ];
 
     const aiResponse = await askAi(messages)
-    const parsed = JSON.parse(aiResponse);
+
+    // Strip markdown code fences the AI sometimes wraps around JSON
+    let parsed;
+    try {
+      const cleanJson = aiResponse.replace(/```json\n?|```/gi, "").trim();
+      parsed = JSON.parse(cleanJson);
+    } catch {
+      throw new Error("AI returned invalid JSON for answer evaluation.");
+    }
 
     question.answer = answer;
     question.confidence = parsed.confidence;
@@ -288,7 +317,12 @@ export const finishInterview = async (req, res) => {
     const interview = await Interview.findById(interviewId)
 
     if (!interview) {
-      return res.status(400).json({ message: "failed to find Interview" })
+      return res.status(404).json({ message: "Interview not found." })
+    }
+
+    // Ensure the interview belongs to the requesting user
+    if (interview.userId.toString() !== req.userId) {
+      return res.status(403).json({ message: "Forbidden: you do not own this interview." });
     }
 
     const totalQuestions = interview.questions.length;
