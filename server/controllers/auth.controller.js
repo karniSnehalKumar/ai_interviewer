@@ -1,10 +1,13 @@
 import generateToken from "../config/generateToken.js";
 import { User } from "../models/user.model.js";
 
+// SameSite=None + Secure=true is required for cross-origin cookie sending.
+// Client and server are on different domains (e.g. Vercel + Render),
+// so we always need these settings — regardless of NODE_ENV.
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  secure: true,
+  sameSite: "none",
   path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
@@ -36,8 +39,8 @@ const logOutUser = (req, res) => {
   try {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: true,
+      sameSite: "none",
       path: "/",
     });
     return res.status(200).json({ message: "Logged out successfully" });
