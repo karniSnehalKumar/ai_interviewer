@@ -173,10 +173,11 @@ function Step1SetUp({ onStart }) {
             </select>
 
             {!analysisDone && (
-              <motion.div
+              <motion.label
+                htmlFor="resumeUpload"
                 className="setup-upload-zone"
                 whileHover={{ scale: 1.01 }}
-                onClick={() => document.getElementById("resumeUpload").click()}
+                style={{ cursor: "pointer", display: "block" }}
               >
                 <div className="setup-upload-icon">
                   <FaFileUpload />
@@ -219,7 +220,7 @@ function Step1SetUp({ onStart }) {
                     )}
                   </motion.button>
                 )}
-              </motion.div>
+              </motion.label>
             )}
 
             {analysisDone && (
