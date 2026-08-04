@@ -6,7 +6,7 @@ export default function Footer() {
       borderTop: "1px solid rgba(255,255,255,0.06)",
       color: "rgba(241,240,245,0.3)", fontSize: 13,
     }}>
-      © {new Date().getFullYear()} InterviewIQ · All rights reserved
+      © {new Date().getFullYear()} PrepIQ · All rights reserved
     </footer>
   );
 }

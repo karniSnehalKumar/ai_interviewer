@@ -14,7 +14,7 @@ export default function Navbar() {
     try {
       await axios.get(SERVER_URL + "/api/auth/logout", { withCredentials: true });
     } catch (error) {
-      // Even if the server call fails, clear the client-side state
+
       console.error("Logout error:", error);
     } finally {
       dispatch(setCurrentUser(null));
@@ -29,7 +29,7 @@ export default function Navbar() {
       background: "rgba(8,8,16,0.8)", backdropFilter: "blur(12px)",
       borderBottom: "1px solid rgba(255,255,255,0.06)",
     }}>
-      {/* ── Brand ── */}
+
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <span style={{
           width: 36, height: 36, borderRadius: 10,
@@ -39,7 +39,7 @@ export default function Navbar() {
         }}>
           <BsRobot size={18} />
         </span>
-        <span style={{ fontWeight: 700, fontSize: 17, color: "#f1f0f5", letterSpacing: "-0.3px" }}>InterviewIQ</span>
+        <span style={{ fontWeight: 700, fontSize: 17, color: "#f1f0f5", letterSpacing: "-0.3px" }}>PrepIQ</span>
         <span style={{
           fontSize: 10, fontWeight: 700, letterSpacing: "0.15em", color: "#a855f7",
           background: "rgba(168,85,247,0.15)", border: "1px solid rgba(168,85,247,0.35)",
@@ -47,7 +47,7 @@ export default function Navbar() {
         }}>AI</span>
       </div>
 
-      {/* ── User info + Logout (only when authenticated) ── */}
+
       {currentUser && (
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <span style={{

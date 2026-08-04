@@ -297,7 +297,7 @@ function Step2Interview({ interviewData, onFinish }) {
 
         <div className="interview-right">
           <div className="interview-header">
-            <h2 className="interview-title">AI Smart Interview</h2>
+            <h2 className="interview-title">PrepIQ Interview</h2>
             <span className="interview-badge">
               <HiSparkles size={13} />
               AI-Powered
@@ -315,7 +315,7 @@ function Step2Interview({ interviewData, onFinish }) {
               >
                 <FaBrain className="intro-icon" />
                 <p className="intro-text">
-                  The AI interviewer is introducing itself…
+                  PrepIQ is getting ready for you…
                 </p>
               </motion.div>
             ) : (

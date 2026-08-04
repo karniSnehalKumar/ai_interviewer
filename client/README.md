@@ -1,16 +1,38 @@
-# React + Vite
+# PrepIQ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI-powered mock interview platform. Upload your resume, choose your interview mode (HR or Technical), and get personalized questions with real-time voice interaction and AI feedback.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Resume upload & parsing (PDF)
+- AI-generated interview questions based on role, experience & skills
+- Voice-based interview with speech synthesis & recognition
+- Real-time AI feedback on confidence, communication & correctness
+- Score report with question-wise breakdown
+- Interview history
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Client:** React, Vite, Redux Toolkit, Framer Motion, Firebase Auth
 
-## Expanding the ESLint configuration
+**Server:** Node.js, Express, MongoDB, Gemini AI, JWT, Multer
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+### Client
+
+```bash
+cd client
+cp .env.example .env   # fill in VITE_FIREBASE_API_KEY and VITE_SERVER_URL
+npm install
+npm run dev
+```
+
+### Server
+
+```bash
+cd server
+cp .env.example .env   # fill in MONGODB_URL, JWT_SECRET, GEMINI_API_KEY, CLIENT_URL
+npm install
+npm run dev
+```
