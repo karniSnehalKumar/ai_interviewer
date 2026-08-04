@@ -40,51 +40,6 @@ PrepIQ is a full-stack web application that simulates real job interviews using 
 
 ---
 
-## Architecture
-
-```mermaid
-flowchart TD
-    A[User Browser] -->|Google Sign-In| B[Firebase Auth]
-    B -->|id_token + name/email| C[POST /api/auth/google]
-    C -->|JWT httpOnly cookie| A
-
-    A -->|PDF Upload| D[POST /api/interview/resume]
-    D -->|Resume text| E[Gemini API]
-    E -->|Parsed JSON: role, skills, projects| A
-
-    A -->|role, experience, mode, resume| F[POST /api/interview/generate-questions]
-    F --> E
-    E -->|5 questions| A
-
-    A -->|Answer text + timeTaken| G[POST /api/interview/submit-answer]
-    G --> E
-    E -->|Score + feedback JSON| A
-
-    A -->|interviewId| H[POST /api/interview/finish]
-    H -->|Aggregated report| A
-
-    subgraph Server
-        C
-        D
-        F
-        G
-        H
-        I[isAuth middleware]
-        J[Rate limiters]
-    end
-
-    subgraph Database
-        K[(MongoDB Atlas)]
-    end
-
-    C --> K
-    F --> K
-    G --> K
-    H --> K
-```
-
----
-
 ## Folder Structure
 
 ```
@@ -317,46 +272,13 @@ Step 3 (Report)
 
 ---
 
-## Screenshots
-
-> Add screenshots of the following screens after deployment:
-
-| Screen | Description |
-|--------|-------------|
-| `Home` | Landing page with hero, features, and mode cards |
-| `Setup` | Resume upload + role/mode selection form |
-| `Interview` | Live interview with AI avatar, timer, speech input |
-| `Report` | Score ring, skill bars, performance chart, Q&A breakdown |
-| `History` | Past sessions grid with score badges |
-
----
-
 ## Future Improvements
 
 - [ ] Persistent file storage (e.g. AWS S3) to support PDF resume access after upload
 - [ ] Refresh token support for longer sessions without re-login
-- [ ] Dark/light theme toggle
 - [ ] Export interview report as PDF
 - [ ] Support for additional languages via Web Speech API `lang` configuration
 - [ ] Admin dashboard for usage analytics
-
----
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "feat: your feature description"`
-4. Push to your branch: `git push origin feature/your-feature`
-5. Open a Pull Request
-
-Please keep PRs focused on a single concern and include a clear description.
-
----
-
-## License
-
-This project is licensed under the **MIT License**.
 
 ---
 
