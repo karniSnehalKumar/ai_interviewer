@@ -12,6 +12,7 @@ function Step2Interview({ interviewData, onFinish }) {
   const { interviewId, questions, userName } = interviewData;
 
   const [isIntroPhase, setIsIntroPhase] = useState(true);
+  const [isEndingPhase, setIsEndingPhase] = useState(false);
   const [isMicOn, setIsMicOn] = useState(true);
   const [isAIPlaying, setIsAIPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -174,6 +175,7 @@ function Step2Interview({ interviewData, onFinish }) {
   const finishInterview = async () => {
     stopMic();
     setIsMicOn(false);
+    setIsEndingPhase(true);
     try {
       const result = await axios.post(
         SERVER_URL + "/api/interview/finish",
@@ -183,6 +185,7 @@ function Step2Interview({ interviewData, onFinish }) {
       onFinish(result.data);
     } catch (error) {
       console.error(error);
+      setIsEndingPhase(false);
     }
   };
 
@@ -354,7 +357,7 @@ function Step2Interview({ interviewData, onFinish }) {
               <motion.button
                 className="submit-btn"
                 onClick={submitAnswer}
-                disabled={isSubmitting || isIntroPhase}
+                disabled={isSubmitting || isIntroPhase || isEndingPhase || isAIPlaying}
                 whileTap={{ scale: 0.97 }}
               >
                 {isSubmitting ? (
