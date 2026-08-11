@@ -12,6 +12,8 @@ const buildHandler = (message) => (req, res, next, options) => {
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
+  // Skip rate limiting on localhost so dev/debug cycles aren't blocked
+  skip: (req) => req.ip === "127.0.0.1" || req.ip === "::1" || req.ip === "::ffff:127.0.0.1",
   standardHeaders: true,
   legacyHeaders: false,
   handler: buildHandler(

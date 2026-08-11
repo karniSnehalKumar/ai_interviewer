@@ -13,20 +13,17 @@ export default function AuthModal({ onClose }) {
   const handleGoogleSignIn = async () => {
     try {
       const response = await signInWithPopup(auth, provider);
-      const firebaseUser = response.user;
-      const name = firebaseUser.displayName;
-      const email = firebaseUser.email;
-
+      const IDtoken = await response.user.getIdToken();
+      console.log(IDtoken);
       const result = await axios.post(
         SERVER_URL + "/api/auth/google",
-        { name, email },
+        { IDtoken },
         { withCredentials: true }
       );
-
       dispatch(setCurrentUser(result.data));
       onClose();
     } catch (error) {
-      console.error(error);
+      console.error("Google sign-in error:", error?.response?.data || error?.message || error);
       dispatch(setCurrentUser(null));
     }
   };
